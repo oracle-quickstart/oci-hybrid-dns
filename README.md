@@ -15,45 +15,32 @@ and [setup guide](https://www.terraform.io/docs/providers/oci/guides/version-3-u
 ## Clone the Module
 Now, you'll want a local copy of this repo. You can make that with the commands:
 
-    git clone https://github.com/oracle-quickstart/oci-arch-data-science
-    cd adw-with-machine-learning
+    git clone https://github.com/oracle-quickstart/oci-hybrid-dns
+    cd oci-hybrid-dns
     ls
 
 ## Prerequisites
-First off, you'll need to do some pre-deploy setup.  That's all detailed [here](https://github.com/cloud-partners/oci-prerequisites).
+1- You  need to do some pre-deploy setup. That's all detailed [here](https://github.com/cloud-partners/oci-prerequisites).
 
-Secondly, create a `terraform.tfvars` file and populate with the following information:
-
+2- Modify `terraform.tfvars` file and populate with the following information:
 ```
-# Authentication
 tenancy_ocid         = "<tenancy_ocid>"
 user_ocid            = "<user_ocid>"
 fingerprint          = "<finger_print>"
 private_key_path     = "<pem_private_key_path>"
 
-# SSH Keys
 ssh_public_key  = "<public_ssh_key_path>"
 
-# Region
 region = "<oci_region>"
 
-# Compartment
 compartment_ocid = "<compartment_ocid>"
+```
 
-# Autonomous Data Warehouse
-autonomous_database_admin_password="enter-password-here"
+3- DNSScrpt.sh file deploys dnsmasq on the DNS forwarding hosts and can be left as is
 
-# Oracle Analytics Cloud
-analytics_instance_capacity_capacity_type="enter_capacity_type_here"
-analytics_instance_capacity_capacity_value="enter_capacity_value_here"
-analytics_instance_feature_set="enter_feature_set_here"
-analytics_instance_license_type="enter_license_type_here"
-analytics_instance_name="enter_OAC_instance_name_here"
-analytics_instance_idcs_access_token="insert_user_IDCS_token_here"
+4- `variable.tf`, `vcn.tf`, and `dns.tf`  files has some default values set which can be modified per the deployment requirement
 
-````
-
-Deploy:
+## Deploy:
 
     terraform init
     terraform plan
