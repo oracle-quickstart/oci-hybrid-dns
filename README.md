@@ -1,6 +1,6 @@
 # oci-hybrid-DNS
 
-Oracle Machine Learning is embedded in both Oracle Autonomous Data Warehouse and Oracle Autonomous Transaction Processing. Because the machine learning algorithms are resident in the database, data scientists can avoid the time, effort, and expense of moving the data to external systems for analysis and model building, scoring, and deployment.
+A hybrid DNS is an overlay deployment of DNS forwarders that are configured to “route” DNS resolution requests between different private DNS namespaces (such as the internal OCI VCN DNS and what is commonly used in many private data centers).
 
 ## Terraform Provider for Oracle Cloud Infrastructure
 The OCI Terraform Provider is now available for automatic download through the Terraform Provider Registry. 
