@@ -1,0 +1,32 @@
+tenancy_id="<tenancy OCID here>"
+user_id="<user OCID here>"
+fingerprint="<user fingerprint here>"
+private_key_path="<full path to private API key here>"
+region = "<region to deploy to>"
+
+default_ssh_auth_keys = [ "<full path to 1+ public SSH keys here>" ]
+default_img_name = "<image name here>"
+instance_shape = "<shape name here>"
+
+compartment_id = "<compartment OCID to deploy in here>"
+vcn_id = "<OCID of existing VCN here>"
+subnet_cidr = "<CIDR for hybrid DNS subnet here>"
+subnet_route_table_id = "<OCID of Route Table to use for hybrid DNS subnet here>"
+allow_vcn_cidr = <true/false>
+inbound_query_cidrs = [ "<CIDRS to allow inbound DNS queries from>" ]
+dns_forwarding_rules = [
+  {
+    domain_name = "<domain name here>",
+    forwarder_ip = "<forwarder IP address here>"
+  }
+]
+reverse_dns_mappings = [
+  {
+    cidr = "<CIDR here>",
+    forwarder_ip = "<forwarder IP address here>"
+  }
+]
+existing_nsg_ids = [
+  "<OCID of 1+ NSGs to add rules for DNS queries to>"
+]
+num_forwarders = <1,2 or 3>

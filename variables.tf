@@ -1,85 +1,89 @@
 ## Copyright © 2020, Oracle and/or its affiliates.
 ## All rights reserved. The Universal Permissive License (UPL), Version 1.0 as shown at http://oss.oracle.com/licenses/upl
 
-# Variables
-variable "tenancy_ocid" {
+variable "vcn_id" {
+  type = string
+  description = "The OCID of the existing VCN that will be used."
+}
+variable "compartment_id" {
+  type = string
+  description = "The compartment OCID to use for all created resources."
+}
+variable "subnet_cidr" {
+  type = string
+  description = "The CIDR to use for the hybrid DNS Subnet that will be made."
+}
+variable "subnet_route_table_id" {
+  type = string
+  description = "The OCID of the existing Route Table to use for the hybrid DNS Subnet."
 }
 
-variable "compartment_ocid" {
+variable "allow_vcn_cidr" {
+  type = bool
+  default = false
+  description = "Whether or not to add NSG rules for the hybrid_dns NSG for the VCN CIDR (ingress/egress rules for DNS queries/reponses)."
+}
+variable "inbound_query_cidrs" {
+  type = list(string)
+  default = []
+  description = "Additional CIDRs that should be added to the hybrid_dns NSG (as NSG rules) for DNS queries/responses."
 }
 
-variable "user_ocid" {
+variable "dns_forwarding_rules" {
+  type = list(object({
+    domain_name = string,
+    forwarder_ip = string
+  }))
+  description = "The DNS namespaces and servers that respond to these namespaces."
+}
+variable "reverse_dns_mappings" {
+  type = list(object({
+    cidr   = string
+    forwarder_ip = string
+  }))
+  description = "The reverse DNS namespaces and servers that respond to these reverse namespaces."
+}
+variable "existing_nsg_ids" {
+  type = list(string)
+  description = "The OCIDs of any existing NSGs that should have rules created to permit DNS requests/responses to/from the hybrid_dns NSG."
+  default = []
 }
 
-variable "fingerprint" {
+variable "num_forwarders" {
+  type = number
+  default = 2
+  description = "How many DNS forwarders should be built (1, 2 or 3)."
 }
-
-variable "private_key_path" {
-}
-
-variable "region" {
-}
-
-variable "ssh_public_key" {
-}
-
-variable "ssh_private_key" {
-}
-
-# Specify any Default Value's here
-
-variable "availability_domain" {
-  default = "1"
-}
-
-variable "ad_number" {
-  default     = 0
-  description = "Which availability domain to deploy to depending on quota, zero based."
-}
-
-variable "ad_name" {
-  default = ""
-}
-variable "AD" {
-    default = "1"
-}
-variable "mgmt_subnet_cidr1" {
-  default = "10.0.0.0/24"
-}
-
-variable "mgmt_subnet_cidr2" {
-  default = "10.0.1.0/24"
-}
-
-variable "onprem_cidr" {
-  default = "172.16.0.0/16"
-}
-
-variable "onprem_dns_zone" {
-  default = "customer.net"
-}
-
-variable "onprem_dns_server1" {
-  default = "172.16.0.5"
-}
-
-variable "onprem_dns_server2" {
-  default = "172.16.31.5"
-}
-
-variable "vcn_cidr" { default = "10.0.0.0/16" }
-
 variable "instance_shape" {
-default = "VM.Standard2.4"
+  type = string
+  description = "The shape to use for the hybrid DNS forwarders - see https://docs.cloud.oracle.com/en-us/iaas/Content/Compute/References/computeshapes.htm for the list."
 }
-variable "InstanceImageOCID" {
-    type = "map"
-    default = {
-        // Oracle-provided image "Oracle-Linux-7.4-2017.12.18-0"
-        // See https://docs.us-phoenix-1.oraclecloud.com/Content/Resources/Assets/OracleProvidedImageOCIDs.pdf
-        us-phoenix-1 = "ocid1.image.oc1.phx.aaaaaaaasc56hnpnx7swoyd2fw5gyvbn3kcdmqc2guiiuvnztl2erth62xnq"
-        us-ashburn-1 = "ocid1.image.oc1.iad.aaaaaaaaxrqeombwty6jyqgk3fraczdd63bv66xgfsqka4ktr7c57awr3p5a"
-        eu-frankfurt-1 = "ocid1.image.oc1.eu-frankfurt-1.aaaaaaaayxmzu6n5hsntq4wlffpb4h6qh6z3uskpbm5v3v4egqlqvwicfbyq"
-    }
+variable "default_img_name" {
+  type = string
+  description = "The image name to use for the hybrid DNS forwarders - see https://docs.cloud.oracle.com/en-us/iaas/images/ for the list."
+}
+variable "default_ssh_auth_keys" {
+  type = list(string)
+  description = "The full path to the public SSH keys to install on each hybrid DNS compute instance."
 }
 
+variable "tenancy_id" {
+  type = string
+  description = "The OCID of the tenancy to use."
+}
+variable "user_id" {
+  type = string
+  description = "The OCID of the OCI user account to use."
+}
+variable "fingerprint" {
+  type = string
+  description = "The fingerprint for the given user account (and API key)."
+}
+variable "private_key_path" {
+  type = string
+  description = "The full path to the private API key to use for the given user account."
+}
+variable "region" {
+  type = string
+  description = "The OCI region identifier to use.  See https://docs.cloud.oracle.com/en-us/iaas/Content/General/Concepts/regions.htm for the list."
+}
