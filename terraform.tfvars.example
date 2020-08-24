@@ -1,0 +1,37 @@
+tenancy_id="ocid1.tenancy.oc1.... use yours here"
+user_id="ocid1.user.oc1.... use yours here"
+fingerprint="<removed - use yours here>"
+private_key_path="<removed - use yours here>"
+region = "us-phoenix-1"
+
+default_ssh_auth_keys = [ "<removed - use yours here>" ]
+default_img_name = "Oracle-Linux-7.8-2020.07.28-0"
+instance_shape = "VM.Standard2.1"
+
+compartment_id = "ocid1.compartment.oc1.... use yours here"
+vcn_id = "ocid1.vcn.oc1.... use yours here"
+subnet_cidr = "192.168.1.0/28"
+subnet_route_table_id = "ocid1.routetable.oc1....  use yours here"
+allow_vcn_cidr = false
+inbound_query_cidrs = [ "10.0.0.0/32", "172.16.12.0/32" ]
+dns_forwarding_rules = [
+  {
+    domain_name = "test.local",
+    forwarder_ip = "10.0.0.10"
+  }
+]
+reverse_dns_mappings = [
+  {
+    cidr = "10.0.0.0/8",
+    forwarder_ip = "10.0.0.10"
+  },
+  {
+    cidr = "172.16.0.0/12",
+    forwarder_ip = "10.0.0.10"
+  }
+]
+existing_nsg_ids = [
+  "ocid1.networksecuritygroup.oc1....  use yours here",
+  "ocid1.networksecuritygroup.oc1....  use yours here"
+]
+num_forwarders = 2
